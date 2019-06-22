@@ -16,7 +16,8 @@ class Player
       puts "card.value = #{card.value}" 
       points = points + card.value  
     end
-  puts "current player points = #{@points + points}"  
+    @points += points
+  puts "current player points = #{@points}"  
   end
 
 

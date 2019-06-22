@@ -31,6 +31,8 @@ end
       puts "o - open cards"
       puts "s - show points"
       puts "r - show results"
+      puts "sc - show cards"
+      
       puts "e - exit"
       
       action = gets.chomp
@@ -38,11 +40,12 @@ end
       case action
         when 't' then  
           puts "turn in cards..."
-          game.turn_in_card_player
+          2.times { game.turn_in_card_player}
+          2.times { game.turn_in_card_dealer}
         when 'p' then  
-          p "player pass..."
+          puts "player pass..."
         when 'o' then
-          p "open cards"
+          puts "open cards"
           game.state = 2 
         when 's'
           game.show_points

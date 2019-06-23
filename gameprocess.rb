@@ -23,11 +23,22 @@ class GameProcess
 
   def show_cards
     if state == 0
-      puts "Player cards: #{@player.player_deck}"
+      puts "Player #{@player.player_name} cards: "
+      @player.player_deck.each do |card|
+        print " #{card.rank}_#{card.suit}"
+        end
+      puts ""  
+      puts "-----------------------"  
       puts "Dealer cards: **** ****"
+      puts "-----------------------"
     end
     if state == 2
-      puts "Player cards: #{@player.player_deck}"
+      puts "Player #{@player.player_name} cards: "
+      @player.player_deck.each do |card|
+        print " #{card.rank}_#{card.suit}"
+        end
+      puts ""
+      puts "-----------------------"  
       puts "Dealer cards: #{@dealer.player_deck}"
     end
   end
@@ -40,6 +51,11 @@ class GameProcess
     @dealer.player_deck << @deck.random
   end
   
+  def dealer_turn
+    if @dealer.points < 17
+      turn_in_card_dealer
+    end
+  end
   
   def show_points
     @player.calc_points
@@ -49,11 +65,11 @@ class GameProcess
   end
 
   def show_results
-    if @player.points > @dealer.points
+    if @player.points > @dealer.points && @player.points <= 21
       puts "#{@player.player_name} win!"
-      elsif @player.points == @dealer.points
+    elsif @player.points == @dealer.points
       puts "draw..."
-    else
+    elsif @player.points < @dealer.points && @dealer.points <= 21
       puts "#{@dealer.player_name} win!"
     end
   end

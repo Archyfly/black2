@@ -1,3 +1,9 @@
+require_relative './player.rb'
+require_relative './cards.rb'
+require_relative './gameprocess.rb'
+require_relative './deck.rb'
+
+
 class GameProcess
   attr_accessor :state
 

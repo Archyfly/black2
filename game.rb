@@ -1,8 +1,8 @@
 require_relative './player.rb'
-require_relative './cards.rb'
+require_relative './card.rb'
 require_relative './gameprocess.rb'
 
-class Game
+class GameInterface
   attr_accessor :player, :game
   attr_reader :status, :actions
   
@@ -73,7 +73,7 @@ end
 end
 
 
-game = Game.new
+game = GameInterface.new
 game.game_start
 
 

@@ -1,11 +1,11 @@
 require_relative './player.rb'
-require_relative './cards.rb'
+require_relative './card.rb'
 require_relative './gameprocess.rb'
 require_relative './deck.rb'
 
 
 class GameProcess
-  attr_accessor :state
+  attr_accessor :state, :bank, :bet
 
   def initialize(player_gt, state)
     @state = state
@@ -16,7 +16,8 @@ class GameProcess
     puts "Player in game now: #{@dealer}"
     puts "Player_name in game now: #{@dealer.player_name}"
     puts "state= #{state}"
-
+    BET = 10
+    @bank = 0 
     @deck = Deck.new
     @deck.create_cards
   end
@@ -44,10 +45,13 @@ class GameProcess
   end
     
   def turn_in_card_player # одна карта
+    puts "#{@player.player_name} get one card"
     @player.player_deck << @deck.random
+
   end
 
   def turn_in_card_dealer # одна карта
+    puts "#{@dealer.player_name} get one card"
     @dealer.player_deck << @deck.random
   end
   
@@ -72,6 +76,14 @@ class GameProcess
     elsif @player.points < @dealer.points && @dealer.points <= 21
       puts "#{@dealer.player_name} win!"
     end
+  end
+
+  def increase_bank(bet)
+    @bank += bet
+  end
+
+  def decrease_bank(bet)
+    @bank -= bet
   end
                 
 end 

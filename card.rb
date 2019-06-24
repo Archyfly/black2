@@ -1,4 +1,4 @@
-load './player.rb'
+require_relative './player.rb'
 
 class Card
   SUITS = %w[<3 <> + ^]

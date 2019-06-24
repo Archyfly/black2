@@ -27,6 +27,4 @@ class Player
   puts "current player aces = #{@aces}"  
   end
 
-
-
 end

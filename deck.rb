@@ -1,5 +1,5 @@
 require_relative './player.rb'
-require_relative './cards.rb'
+require_relative './card.rb'
 
 class Deck
 

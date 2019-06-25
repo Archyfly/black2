@@ -13,9 +13,9 @@ class Player
     @points = 0 # подсчет заново каждый раз
     @aces = 0
     points = 0
-    puts "player_deck = #{self.player_deck}"
+    #puts "player_deck = #{self.player_deck}"
     self.player_deck.each do |card| 
-      puts "card.value = #{card.value}" 
+      #puts "card.value = #{card.value}" 
       points = points + card.value  
       if card.rank.include?('A')
       @aces += 1
@@ -23,8 +23,8 @@ class Player
     end
     @points += points
     @points -= 10 if @points > 21 && @aces > 0
-  puts "current player points = #{@points}"  
-  puts "current player aces = #{@aces}"  
+  #puts "current player points = #{@points}"  
+  #puts "current player aces = #{@aces}"  
   end
 
 end

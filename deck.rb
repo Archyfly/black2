@@ -22,17 +22,17 @@ class Deck
        @cards << Card.new(suit, rank, value)
       end
     end
-    puts @cards.size
+    #puts @cards.size
   end
 
   def random
     #random_card = self.cards[rand(@cards.size)]
     random_card = self.cards.sample
 
-    puts "random_card = #{random_card}, #{random_card.rank}_#{random_card.suit} "
+    #puts "random_card = #{random_card}, #{random_card.rank}_#{random_card.suit} "
 
     cards.delete(random_card)
-    puts @cards.size
+    #puts @cards.size
     return random_card
   end
 end

@@ -5,7 +5,7 @@ require_relative './deck.rb'
 
 
 class GameProcess
-  attr_accessor :state, :bank, :bet
+  attr_accessor :state, :bank, :bet, :player, :dealer
   BET = 10
 
   def initialize(player_gt, state)
@@ -23,7 +23,8 @@ class GameProcess
   end
 
   def turn_in_card_player # одна карта
-    @player.player_deck << @deck.random
+    rc = @deck.random
+    @player.player_deck << rc
   end
 
   def turn_in_card_dealer # одна карта
@@ -73,6 +74,25 @@ class GameProcess
 
   def dealer_win
     @dealer.moneys += @bank
+  end
+
+  def show_player_cards
+    player_deck = []
+      @player.player_deck.each do |card|
+        player_deck << "#{card.rank}_#{card.suit}" 
+      end
+    return player_deck
+  end
+
+  def show_dealer_cards 
+    dealer_deck = ['*** ***']
+
+    if state > 0 
+      @dealer.player_deck.each do |card|
+        dealer_deck << "#{card.rank}_#{card.suit}" 
+      end
+    end  
+    return dealer_deck
   end
 
 end 

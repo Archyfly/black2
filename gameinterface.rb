@@ -3,13 +3,14 @@ require_relative './card.rb'
 require_relative './gameprocess.rb'
 
 class GameInterface
-  attr_accessor :player, :game
+  attr_accessor :player, :game, :bank
   attr_reader :status, :actions
   
   def initialize
-  @game = game
-  @player = player
-end
+    @game = game
+    @player = player
+    @bank = 0
+  end
   
   def game_start
     p "Enter your name:"
@@ -17,13 +18,14 @@ end
 
     p "Do you want to game? (yes/no)"
     answer = gets.chomp
-    game_process if answer == 'yes'
+    create_new_game if answer == 'yes'
 
   end
 
 
-  def game_process
+  def create_new_game
     p "now you in game process "
+    while action != 'game_over'
     game = GameProcess.new @player, 0
     
     game.increase_bank
@@ -32,26 +34,26 @@ end
     2.times { game.turn_in_card_player}
     2.times { game.turn_in_card_dealer}
 
-
+    puts "#{@player} cards now: #{game.show_player_cards}"
+    puts "Dealer cards now: #{game.show_dealer_cards}"
+    
+    
     #game.show_cards
-    loop do 
       puts "select action:"
       puts "t - turn in one card"
       puts "p - pass"
       puts "o - open cards"
-      puts "s - show points"
-      puts "r - show results"
-      puts "sc - show cards (adm)"
-      
-      puts "e - exit"
+      #puts "s - show points"
+      #puts "r - show results"
+      #puts "sc - show cards (adm)"
+      #puts "e - exit"
       
       action = gets.chomp
-      break if action == 'e'
       case action
         when 't' then
-          view(1)  
           game.turn_in_card_player
-          game.show_cards
+          puts "#{@player} cards now: #{game.show_player_cards}"
+        
         when 'p' then  
           puts "player pass..."
           view(2)  
@@ -78,7 +80,7 @@ end
         when 'sc'
           game.show_cards
       end
-    end
+    
   end
 
   def view(state) # варианты того, что выводим на экран.

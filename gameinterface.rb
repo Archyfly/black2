@@ -25,64 +25,57 @@ class GameInterface
 
   def create_new_game
     p "now you in game process "
-    while action != 'game_over'
-    game = GameProcess.new @player, 0
-    
-    game.increase_bank
-    puts "moneys in bank now: #{game.bank}"
-    puts "turn in cards..."
-    2.times { game.turn_in_card_player}
-    2.times { game.turn_in_card_dealer}
+    #while action != 'game_over'
+    @game = GameProcess.new @player, 0
+    while @game.state != 3 
 
-    puts "#{@player} cards now: #{game.show_player_cards}"
-    puts "Dealer cards now: #{game.show_dealer_cards}"
+      @game.increase_bank
+      puts "moneys in bank now: #{@game.bank}"
+      puts "turn in cards..."
+      2.times { @game.turn_in_card_player}
+      2.times { @game.turn_in_card_dealer}
+
+      puts "#{@player} cards now: #{@game.show_player_cards}"
+      puts "Dealer cards now: #{@game.show_dealer_cards}"
     
-    
-    #game.show_cards
       puts "select action:"
       puts "t - turn in one card"
       puts "p - pass"
-      puts "o - open cards"
-      #puts "s - show points"
-      #puts "r - show results"
-      #puts "sc - show cards (adm)"
-      #puts "e - exit"
-      
+        
       action = gets.chomp
       case action
-        when 't' then
-          game.turn_in_card_player
-          puts "#{@player} cards now: #{game.show_player_cards}"
-        
-        when 'p' then  
-          puts "player pass..."
-          view(2)  
-          
-          game.dealer_turn
-          game.state = 2
-          game.show_points
-          game.show_cards
-          game.show_results
-        when 'o' then
-          puts "open cards"
-          view(3)  
-          view('cards')
-          game.state = 2
-          game.show_cards
-          game.show_points
-          game.show_results
+      when 't' then
+        @game.turn_in_card_player
+        puts "#{@player} cards now: #{@game.show_player_cards}"
+        @game.calculate_points
+        @game.state = 2
+      when 'p' then  
+        @game.dealer_turn
+        @game.calculate_points
+        @game.state = 3
+      end  
+      puts "Round ended." 
     
-        when 's'
-          game.show_points
-        when 'r'
-          game.show_points
-          game.show_results
-        when 'sc'
-          game.show_cards
-      end
-    
-  end
+      puts "select action at end round: v - view stats. n - next game" # test
+      at_end = gets.chomp
+      case at_end
+      when 'v' then 
+        puts @game.show_results
+        puts @game.show_player_cards
+        puts @game.show_dealer_cards
+        puts @game.player.moneys
+        puts @game.dealer.moneys
+        @game.reset 
 
+      when 'n' then
+        puts "open cards" #ref
+      @game.state = 3
+
+      end
+
+    end
+  end
+      
   def view(state) # варианты того, что выводим на экран.
     case state
       when 1
@@ -106,10 +99,6 @@ class GameInterface
       puts "state 4"    
     end
   end
-
-
-    
-   
 
 end
 

@@ -18,15 +18,6 @@ class GameProcess
     #puts "Player_name in game now: #{@dealer.player_name}"
     #puts "state= #{state}"
     @bank = 0 
-    #@deck = Deck.new
-    @deck.create_cards
-  end
-
-  def start_round(player_bank, dealer_bank) #mr_koww - при старте раунда переносим только банк. 
-    @deck = Deck.new
-    2.times { @game.turn_in_card_player}
-    2.times { @game.turn_in_card_dealer}
-    @state = 1
   end
 
   def reset
@@ -116,7 +107,7 @@ class GameProcess
   def show_dealer_cards 
     dealer_deck = ['*** ***']
 
-    if state > 0
+    if state > 1
       dealer_deck = []
 
       @dealer.player_deck.each do |card|
@@ -125,5 +116,16 @@ class GameProcess
     end  
     return dealer_deck
   end
+  def start_round #mr_koww - при старте раунда переносим только банк. 
+    @deck = Deck.new
+    @deck.create_cards
+    2.times { self.turn_in_card_player}
+    2.times { self.turn_in_card_dealer}
+    players_to_bank
+    
+    @state = 1
+  end
+
+ 
 
 end 

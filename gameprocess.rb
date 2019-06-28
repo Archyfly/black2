@@ -8,16 +8,22 @@ class GameProcess
   attr_accessor :state, :bank, :bet, :player, :dealer
   BET = 10
 
-  def initialize(player, state)
-    @state = state
-    
+  def initialize(player, dealer, state)
+      
+    @player = player
+    @dealer = dealer
     #puts "Player in game now: #{@player}"
     #puts "Player_name in game now: #{@player.player_name}"
-    
+    @state = 0
+    @bank = 0 
+    @deck = Deck.new
+    @deck.create_cards
+    @dealer_deck = []
+    @player_deck = []
     #puts "Player in game now: #{@dealer}"
     #puts "Player_name in game now: #{@dealer.player_name}"
     #puts "state= #{state}"
-    @bank = 0 
+     
   end
 
   def reset
@@ -30,13 +36,20 @@ class GameProcess
   end
 
   def turn_in_card_player # одна карта
+    
     rc = @deck.random
+    # puts below only for control 
+    
+    puts "rcp=#{rc}"
     @player.player_deck << rc
     show_player_cards
   end
 
   def turn_in_card_dealer # одна карта
-    @dealer.player_deck << @deck.random
+    rc = @deck.random
+    # puts below only for control 
+    puts "rcd=#{rc}"
+    @dealer.player_deck << rc
     show_dealer_cards  
   end
   
@@ -120,6 +133,8 @@ class GameProcess
   
   def start_round #mr_koww - при старте раунда переносим только банк. 
     @deck = Deck.new
+    # puts below only for control 
+    puts "@deck= #{@deck}"
     @deck.create_cards
     2.times { self.turn_in_card_player}
     2.times { self.turn_in_card_dealer}

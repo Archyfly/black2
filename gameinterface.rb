@@ -15,26 +15,28 @@ class GameInterface
   def game_start
     p "Enter your name:"
     player_gt = gets.chomp
-    player = Player.new(player_gt)
+    @player = Player.new(player_gt)
     @dealer = Player.new
     p "Do you want to game? (yes/no)"
     answer = gets.chomp
-    create_new_game(player) if answer == 'yes'
-
+    if answer == 'yes' 
+      create_new_game(@player, @dealer) 
+    end
   end
 
 
-  def create_new_game(player)
+  def create_new_game(player, dealer)
+  
     p "now you in game process "
     #while action != 'game_over'
-    @game = GameProcess.new @player, 0
+    @game = GameProcess.new player, dealer, 0
     while @game.state < 3 
       @game.start_round
       puts "******** Black Jack Cart Table **************"      
       puts "moneys in bank now: #{@game.bank}"
       puts "turn in cards..."
       
-      puts "#{player.player_name} cards now: #{@game.show_player_cards}"
+      puts "#{@player} cards now: #{@game.show_player_cards}"
       puts "Dealer cards now: #{@game.show_dealer_cards}"
       puts "*********************************************"  
       puts "select action:"

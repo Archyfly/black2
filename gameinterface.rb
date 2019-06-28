@@ -36,7 +36,7 @@ class GameInterface
       puts "moneys in bank now: #{@game.bank}"
       puts "turn in cards..."
       
-      puts "#{@player} cards now: #{@game.show_player_cards}"
+      puts "#{@player.player_name} cards now: #{@game.show_player_cards}"
       puts "Dealer cards now: #{@game.show_dealer_cards}"
       puts "*********************************************"  
       puts "select action:"
@@ -63,9 +63,10 @@ class GameInterface
         puts "Round ended..."
       end  
        
-   
+       @game.reset
+    @game.start_round 
     end
-    @game.reset 
+
   end
       
   def view(state) # варианты того, что выводим на экран.

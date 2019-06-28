@@ -8,12 +8,12 @@ class GameProcess
   attr_accessor :state, :bank, :bet, :player, :dealer
   BET = 10
 
-  def initialize(player_gt, state)
+  def initialize(player, state)
     @state = state
-    @player = Player.new(player_gt)
+    
     #puts "Player in game now: #{@player}"
     #puts "Player_name in game now: #{@player.player_name}"
-    @dealer = Player.new
+    
     #puts "Player in game now: #{@dealer}"
     #puts "Player_name in game now: #{@dealer.player_name}"
     #puts "state= #{state}"
@@ -81,6 +81,7 @@ class GameProcess
     @player.moneys += @bank
     decrease_bank
     puts "Player WIN!"
+    
   end
 
   def dealer_win
@@ -116,6 +117,7 @@ class GameProcess
     end  
     return dealer_deck
   end
+  
   def start_round #mr_koww - при старте раунда переносим только банк. 
     @deck = Deck.new
     @deck.create_cards
@@ -125,6 +127,7 @@ class GameProcess
     
     @state = 1
   end
+
 
  
 
